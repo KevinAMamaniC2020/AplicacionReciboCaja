@@ -2,8 +2,6 @@ package com.cdp.rcaja.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
@@ -19,7 +17,6 @@ import com.cdp.rcaja.entidades.Recibos;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.ReciboViewHolder> {
 
@@ -35,15 +32,15 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ReciboViewHolder> 
     @NonNull
     @Override
     public ReciboViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_lista_items_recibo, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_lista_recibos, null, false);
         return new ReciboViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ReciboViewHolder holder, int position) {
-        holder.nombre.setText(listaRecibos.get(position).getNombreCliente());
-        holder.correo.setText(listaRecibos.get(position).getNombreBanco());
-        holder.estado.setText(listaRecibos.get(position).getEstado());
+        holder.viewNombre.setText(listaRecibos.get(position).getNombreCliente());
+        holder.viewCorreo.setText(listaRecibos.get(position).getNombreBanco());
+        holder.viewEstado.setText(listaRecibos.get(position).getEstado());
     }
 
     @Override
@@ -56,15 +53,14 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ReciboViewHolder> 
     public class ReciboViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iconImage;
-        TextView nombre,correo,estado;
+        TextView viewNombre,viewCorreo,viewEstado;
 
         public ReciboViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            iconImage = itemView.findViewById(R.id.iconRecibo);
-            nombre = itemView.findViewById(R.id.nameTextView);
-            correo= itemView.findViewById(R.id.correoTextView);
-            estado=itemView.findViewById(R.id.estadoTextView);
+            viewNombre = itemView.findViewById(R.id.viewNombre);
+            viewCorreo= itemView.findViewById(R.id.viewBanco);
+            viewEstado=itemView.findViewById(R.id.viewEstado);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

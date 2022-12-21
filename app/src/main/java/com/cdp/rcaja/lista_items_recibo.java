@@ -31,7 +31,6 @@ public class lista_items_recibo extends AppCompatActivity {
         setContentView(R.layout.activity_lista_items_recibo);
         listaRecibos = findViewById(R.id.listaRecibos);
         addNuevo =findViewById(R.id.addRecibo);
-
         listaRecibos.setLayoutManager(new LinearLayoutManager(this));
 
         DbRecibo dbRecibo = new DbRecibo(lista_items_recibo.this);
@@ -53,10 +52,6 @@ public class lista_items_recibo extends AppCompatActivity {
     }
 
 
-    private void onClick(View view){
-        Intent intent = new Intent(this, nuevo_recibo.class);
-        startActivity(intent);
-    }
 
     private void nuevoRegistro(){
         Intent intent = new Intent(this, nuevo_recibo.class);

@@ -8,15 +8,18 @@
 
     <EditText
         android:id="@+id/txtCrearEstado"
-        android:layout_width="254dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="12dp"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="252dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Activo, Inactivo,*"
-        android:inputType="number"
+        android:hint="Activo,Inactivo,*"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCrearBanc" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textCrearID" />
 
     <TextView
         android:id="@+id/textView6"
@@ -39,7 +42,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/textCrearID"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="88dp" />
+        tools:layout_editor_absoluteY="88dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
@@ -99,7 +103,8 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        tools:layout_editor_absoluteY="88dp" />
+        tools:layout_editor_absoluteY="88dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/txtCrearNom"

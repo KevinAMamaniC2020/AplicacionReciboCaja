@@ -21,7 +21,7 @@ public class DbRecibo extends DbHelper {
         this.context = context;
     }
 
-    public long insertarContacto(String nombre, String Cajero, int monto, String estado) {
+    public long insertarContacto(String nombre, String cajero, int monto, String estado) {
 
         long id = 0;
 
@@ -30,10 +30,10 @@ public class DbRecibo extends DbHelper {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put("Cliente", nombre);
-            values.put("Cajero", Cajero);
-            values.put("Monto",monto);
-            values.put("Estado",estado);
+            values.put("nombre", nombre);
+            values.put("cajero", cajero);
+            values.put("monto",monto);
+            values.put("estado",estado);
 
             id = db.insert(TABLE_RECIBOS, null, values);
         } catch (Exception ex) {
@@ -49,8 +49,8 @@ public class DbRecibo extends DbHelper {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ArrayList<Recibos> listaRecibos= new ArrayList<>();
-        Recibos recibo;
-        Cursor cursorRecibos;
+        Recibos recibo = null;
+        Cursor cursorRecibos = null;
 
         cursorRecibos = db.rawQuery("SELECT * FROM " + TABLE_RECIBOS + " ORDER BY nombre ASC", null);
 

@@ -39,7 +39,7 @@ public class nuevo_recibo extends AppCompatActivity {
                     DbRecibo dbRecibo = new DbRecibo(nuevo_recibo.this);
                     long id = dbRecibo.insertarContacto(txtNombre.getText().toString(), txtCajero.getText().toString(), Integer.parseInt(txtMonto.getText().toString()),txtEstado.getText().toString());
 
-                    if (id < 0) {
+                    if (id > 0) {
                         Toast.makeText(nuevo_recibo.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
                         limpiar();
                     } else {
