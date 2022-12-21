@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cdp.rcaja.db.DbRecibo;
 
 public class nuevo_recibo extends AppCompatActivity {
-    EditText txtNombre, txtCajero, txtMonto;
+    EditText txtNombre, txtCajero, txtMonto,txtEstado;
     Button btnCrear, btnCancel;
-    RadioButton staActv, staInac, staElim;
+    //RadioButton staActv, staInac, staElim;
 
     @Override
     protected void onCreate(Bundle savedInstaceState) {
@@ -24,11 +24,12 @@ public class nuevo_recibo extends AppCompatActivity {
         txtNombre = findViewById(R.id.txtCrearNom);
         txtCajero = findViewById(R.id.txtCrearBanc);
         txtMonto = findViewById(R.id.txtCrearMon);
+        txtEstado = findViewById(R.id.txtCrearEstado);
         btnCrear = findViewById(R.id.btnCrearRec);
         btnCancel = findViewById(R.id.btnCancelCre);
-        staActv = findViewById(R.id.selectAct);
+        /*staActv = findViewById(R.id.selectAct);
         staElim = findViewById(R.id.selectElim);
-        staInac = findViewById(R.id.selectInac);
+        staInac = findViewById(R.id.selectInac);*/
 
         btnCrear.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -36,9 +37,9 @@ public class nuevo_recibo extends AppCompatActivity {
                 if(!txtNombre.getText().toString().equals("") && !txtCajero.getText().toString().equals("")) {
 
                     DbRecibo dbRecibo = new DbRecibo(nuevo_recibo.this);
-                    long id = dbRecibo.insertarContacto(txtNombre.getText().toString(), txtCajero.getText().toString(), txtMonto.getText().toString(),);
+                    long id = dbRecibo.insertarContacto(txtNombre.getText().toString(), txtCajero.getText().toString(), Integer.parseInt(txtMonto.getText().toString()),txtEstado.getText().toString());
 
-                    if (id > 0) {
+                    if (id < 0) {
                         Toast.makeText(nuevo_recibo.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
                         limpiar();
                     } else {
@@ -58,5 +59,6 @@ public class nuevo_recibo extends AppCompatActivity {
         txtNombre.setText("");
         txtCajero.setText("");
         txtMonto.setText("");
+        txtEstado.setText("");
     }
 }

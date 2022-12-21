@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.SearchView;
 
 import com.cdp.rcaja.Adapter.Adaptador;
+import com.cdp.rcaja.db.DbRecibo;
 import com.cdp.rcaja.entidades.Recibos;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -18,39 +19,48 @@ import java.util.List;
 
 public class lista_items_recibo extends AppCompatActivity {
 
-    List<Recibos> elementos;
+    ArrayList<Recibos> elementos;
     RecyclerView listaRecibos;
     SearchView busquedaRecibo;
     FloatingActionButton addNuevo;
+    Adaptador adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items_recibo);
+        listaRecibos = findViewById(R.id.listaRecibos);
+        addNuevo =findViewById(R.id.addRecibo);
 
-        init();
-        addNuevo = findViewById(R.id.addRecibo);
+        listaRecibos.setLayoutManager(new LinearLayoutManager(this));
 
-        addNuevo.setOnClickListener(view ->{
-            onClick(view);
-        });
-    }
+        DbRecibo dbRecibo = new DbRecibo(lista_items_recibo.this);
 
-    public void init(){
         elementos = new ArrayList<>();
-        elementos.add(new Recibos("#775457","Rodolfo Juancracio","Juan@gmail.com","Activo"));
-        elementos.add(new Recibos("#775457","Juancracio Perez","Perez@gmail.com","Inactivo"));
-        elementos.add(new Recibos("#775457","Perez Lopez","Lopez@gmail.com","*"));
 
-        Adaptador listAdapter = new Adaptador(elementos,this);
-        RecyclerView recyclerView = findViewById(R.id.listaContactos);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listAdapter);
+        adapter = new Adaptador(dbRecibo.mostrarContactos());
+        listaRecibos.setAdapter(adapter);
+
+        addNuevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nuevoRegistro();
+            }
+        });
+
+        //txtBuscar.setOnQueryTextListener(this);
+
     }
+
 
     private void onClick(View view){
         Intent intent = new Intent(this, nuevo_recibo.class);
         startActivity(intent);
     }
+
+    private void nuevoRegistro(){
+        Intent intent = new Intent(this, nuevo_recibo.class);
+        startActivity(intent);
+    }
+
 }

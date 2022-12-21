@@ -1,6 +1,7 @@
 package com.cdp.rcaja.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
@@ -9,61 +10,72 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdp.rcaja.R;
+import com.cdp.rcaja.Ver_recibo;
 import com.cdp.rcaja.entidades.Recibos;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
+public class Adaptador extends RecyclerView.Adapter<Adaptador.ReciboViewHolder> {
 
-    private List<Recibos> mData;
-    private LayoutInflater mInflater;
-    private Context context;
+    ArrayList<Recibos> listaRecibos;
+    ArrayList<Recibos> listaOriginal;
 
-    public Adaptador(List<Recibos> itemList, Context context){
-        this.mInflater = LayoutInflater.from(context);
-        this.context = context;
-        this.mData = itemList;
+    public Adaptador(ArrayList<Recibos> listaRecibos) {
+        this.listaRecibos = listaRecibos;
+        listaOriginal = new ArrayList<>();
+        listaOriginal.addAll(listaRecibos);
+    }
+
+    @NonNull
+    @Override
+    public ReciboViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_lista_items_recibo, null, false);
+        return new ReciboViewHolder(view);
     }
 
     @Override
-    public int getItemCount(){ return mData.size(); }
-
-    @Override
-    public Adaptador.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = mInflater.inflate(R.layout.activity_lista_recibos,null);
-        return new Adaptador.ViewHolder(view);
+    public void onBindViewHolder(@NonNull ReciboViewHolder holder, int position) {
+        holder.nombre.setText(listaRecibos.get(position).getNombreCliente());
+        holder.correo.setText(listaRecibos.get(position).getNombreBanco());
+        holder.estado.setText(listaRecibos.get(position).getEstado());
     }
 
     @Override
-    public void onBindViewHolder(final Adaptador.ViewHolder holder,final int position){
-        holder.binData(mData.get(position));
+    public int getItemCount() {
+        return listaRecibos.size();
     }
 
-    public void setItems(List<Recibos> items){mData=items;}
+    //public void setItems(List<Recibos> items){mData=items;}
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ReciboViewHolder extends RecyclerView.ViewHolder {
+
         ImageView iconImage;
         TextView nombre,correo,estado;
 
-        ViewHolder(View itemView){
+        public ReciboViewHolder(@NonNull View itemView) {
             super(itemView);
+
             iconImage = itemView.findViewById(R.id.iconRecibo);
             nombre = itemView.findViewById(R.id.nameTextView);
             correo= itemView.findViewById(R.id.correoTextView);
             estado=itemView.findViewById(R.id.estadoTextView);
-        }
 
-        void binData(final Recibos item){
-            iconImage.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
-            nombre.setText(item.getNombreCliente());
-            correo.setText(item.getCorreo_electornico());
-            estado.setText(item.getEstado());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, Ver_recibo.class);
+                    intent.putExtra("ID", listaRecibos.get(getAdapterPosition()).getId());
+                    context.startActivity(intent);
+                }
+            });
         }
-
     }
 }
 
